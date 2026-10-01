@@ -85,7 +85,7 @@ PROMPTS = [
 def interactive_input() -> list:
     """Запрашивает значения признаков у пользователя в интерактивном режиме."""
     print("\nВведите данные студента:")
-    print("─" * 50)
+    print("-" * 50)
     values = []
     for (label, hint), name in zip(PROMPTS, FEATURE_NAMES):
         while True:
@@ -94,7 +94,7 @@ def interactive_input() -> list:
                 values.append(float(raw))
                 break
             except ValueError:
-                print("    ⚠️  Введите числовое значение.")
+                print("    [!] Введите числовое значение.")
     return values
 
 
@@ -104,8 +104,8 @@ def batch_predict(model, scaler, csv_path: str):
     """Читает CSV (без колонки target_grade) и выводит предсказания."""
     import csv
 
-    print(f"\nПакетное предсказание из «{csv_path}»")
-    print("─" * 60)
+    print(f"\nПакетное предсказание из '{csv_path}'")
+    print("-" * 60)
 
     with open(csv_path, newline="", encoding="utf-8") as f:
         reader = csv.DictReader(f)
@@ -167,10 +167,10 @@ def main():
     grade = predict_one(model, scaler, features)
 
     # Красивый вывод
-    print("\n" + "═" * 50)
+    print("\n" + "=" * 50)
     print(f"  Рекомендуемая оценка: {grade:.1f} / 100")
     print(f"  {interpret(grade)}")
-    print("═" * 50)
+    print("=" * 50)
 
     # Подробный вывод признаков
     print("\n  Введённые данные:")

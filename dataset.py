@@ -104,11 +104,12 @@ class StandardScaler:
         self.std_[self.std_ == 0] = 1.0
         return self
 
-    def transform(self, X: np.ndarray) -> np.ndarray:
-        """Применяет нормализацию."""
+    def transform(self, X: np.ndarray, clip_val: float = 3.5) -> np.ndarray:
+        """Применяет нормализацию с ограничением экстремальных выбросов."""
         if self.mean_ is None:
             raise RuntimeError("Сначала вызовите fit().")
-        return (X - self.mean_) / self.std_
+        z = (X - self.mean_) / self.std_
+        return np.clip(z, -clip_val, clip_val)
 
     def fit_transform(self, X: np.ndarray) -> np.ndarray:
         """Удобный метод: fit + transform в одном вызове."""

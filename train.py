@@ -29,7 +29,7 @@ from dataset import load_dataset, split_dataset, normalize_features
 # Аргументы командной строки
 def parse_args():
     parser = argparse.ArgumentParser(description="Обучение нейросети успеваемости")
-    parser.add_argument("--dataset",    default="dataset.csv", help="Путь к CSV-файлу")
+    parser.add_argument("--dataset",    default="dataset_college_72h.csv", help="Путь к CSV-файлу")
     parser.add_argument("--epochs",     type=int,   default=150,  help="Число эпох")
     parser.add_argument("--lr",         type=float, default=0.001, help="Скорость обучения")
     parser.add_argument("--batch-size", type=int,   default=16,   help="Размер батча")
@@ -124,7 +124,7 @@ def main():
     )
 
     print(f"\nНачало обучения ({args.epochs} эпох, lr={args.lr}, batch={args.batch_size})")
-    print("─" * 60)
+    print("-" * 60)
 
     best_val_loss = float("inf")
     best_state    = None
@@ -148,7 +148,7 @@ def main():
                   f"Val MSE: {val_loss:8.2f} | "
                   f"Val MAE: {val_mae:5.2f}")
 
-    print("─" * 60)
+    print("-" * 60)
 
     # 7. Финальная оценка на тестовой выборке
     model.load_state_dict(best_state)
@@ -164,7 +164,7 @@ def main():
         "dropout_rate":     args.dropout,
         "feature_names":    FEATURE_NAMES,
     }, args.model_out)
-    print(f"\n✅ Модель сохранена в «{args.model_out}»")
+    print(f"\n[OK] Модель сохранена в '{args.model_out}'")
 
 
 if __name__ == "__main__":
